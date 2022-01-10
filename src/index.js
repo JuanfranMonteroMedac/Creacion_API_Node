@@ -1,22 +1,8 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const con = require('./commons/conexionBBDD').conexion()
 
-//BBDD
-var mysql = require('mysql');
-
-var con = mysql.createConnection({
-  host: "10.192.240.25",
-  port: "3307",
-  user: "juanfranmontero",
-  password: "2DAW2021...",
-  database : 'bd_taller'
-});
-
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
 
 //Configuraciones
 app.set("port", process.env.PORT || 3000);
@@ -35,22 +21,21 @@ app.listen(app.get("port"), () => {
   console.log(`Server listening on port ${app.get("port")}`);
 });
 
-app.get('/users', (req,res) => {
-  let sql = "SELECT * FROM lista_usuario"
-  con.query(sql, (err, result) => {
-      if(err) throw err
-      res.json(result);
-  })
-});
+//MOSTRAR TODOS LOS USUARIOS
+const userList = require('./users/dataUser').userList
+app.get('/users',(req,res) => userList(req,res, con));
 
-app.get('/id_usuario', (req,res) => {
-  const id_usuario = req.query.id;
-  let sql = `SELECT * FROM lista_usuario WHERE id_usuario = ${id_usuario}`
-  con.query(sql, (err, result) => {
-      if(err) throw err
-      res.json(result);
-  })
-});
+//MOSTRAR LOS USUARIOS POR ID
+const userId = require('./users/dataUser').userId
+app.get('/userId',(req,res) => userId(req,res, con));
+
+//MOSTRAR VEHICULOS POR ID USUARIO
+const vehicleId = require('./vehicles/dataVehicle').vehicleId
+app.get('/vehiclesId', (req, res) => vehicleId(req, res, con))
+
+//MOSTRAR VEHICULOS POR ID MATRICULA
+const dataVehicleId = require('./vehicles/dataVehicle').dataVehicleId
+app.get('/dataVehicleId', (req, res) => dataVehicleId(req, res, con))
 
 // app.post('/editUsuario', (req, res) => {
 //   const id_usuario = req.body.id_usuario
