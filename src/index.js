@@ -37,15 +37,18 @@ app.get('/vehiclesId', (req, res) => vehicleId(req, res, con))
 const dataVehicleId = require('./vehicles/dataVehicle').dataVehicleId
 app.get('/dataVehicleId', (req, res) => dataVehicleId(req, res, con))
 
-// app.post('/editUsuario', (req, res) => {
-//   const id_usuario = req.body.id_usuario
-//   const nombre = req.body.nombre
-//   const dni = req.body.dni
+//MOSTRAR SERVICIO VEHICULO POR ID MATRICULA
+const serviceVehicle = require('./vehicles/dataVehicle').serviceVehicle
+app.get('/serviceVehicle', (req, res) => serviceVehicle(req, res, con))
 
-//   const sql = "UPDATE lista_usuario SET nombre = "+nombre+", dni = "+dni+""
-//   con.query(sql, (err, result) => {
-//     if(err) throw err
-//     // console.log('Resultado: ' + JSON.stringify(result, null, 2));
-//     res.json(result);
-// })
-// })
+//MOSTRAR SERVICIO VEHICULO POR ID SERVICIO
+const dataServiceVehicle = require('./vehicles/dataVehicle').dataServiceVehicle
+app.get('/dataServiceVehicle', (req, res) => dataServiceVehicle(req, res, con))
+
+
+//TODO INTERACIONES DE CROD
+
+
+//INFORMACION DE UN UNSUARIO Y SUS VEHICULOS MEDIANTE ID USUARIO
+const dataUserAndVehicles = require('./users/dataUser').dataUserAndVehicles
+app.get('/dataUserAndVehicles', (req, res) => dataUserAndVehicles(req, res, con))
