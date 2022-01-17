@@ -34,9 +34,25 @@ const dataServiceVehicle = (req, res, con) => {
     })
 }
 
+const dataVehicleAndService = (req, res, con) => {
+    const id_usuario = req.query.id_usuario
+    let sql = `SELECT * FROM lista_vehiculos WHERE id_usuario = ${id_usuario}`
+    con.query(sql, (err, result) => {
+        if(err) throw err
+        let sqlVhc = `SELECT * FROM lista_servicios WHERE id_matricula = ${result.id_matricula}`
+        con.query(sqlVhc, (err, resultService) => {
+            if(err) throw err
+            let dataVhcsAndServices = {result, Servicios: resultService}
+            console.log(dataVhcsAndServices);
+            return res.json(dataVhcsAndServices)
+        }) 
+    })
+  }
+
 exports.vehicleId =  vehicleId
 exports.dataVehicleId =  dataVehicleId
 exports.serviceVehicle =  serviceVehicle
 exports.dataServiceVehicle =  dataServiceVehicle
+exports.dataVehicleAndService = dataVehicleAndService
 
 

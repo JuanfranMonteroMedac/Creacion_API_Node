@@ -47,8 +47,13 @@ app.get('/dataServiceVehicle', (req, res) => dataServiceVehicle(req, res, con))
 
 
 //TODO INTERACIONES DE CROD
-
+const updateUser = require('./users/dataUser').updateUser
+app.post('/updateUser', (req, res) => updateUser(req, res, con))
 
 //INFORMACION DE UN UNSUARIO Y SUS VEHICULOS MEDIANTE ID USUARIO
 const dataUserAndVehicles = require('./users/dataUser').dataUserAndVehicles
 app.get('/dataUserAndVehicles', (req, res) => dataUserAndVehicles(req, res, con))
+
+//INFORMACION DE UN VEHICULO Y SUS SERVICIOS MEDIANTE ID USUARIO
+const dataVehicleAndService = require('./vehicles/dataVehicle').dataVehicleAndService
+app.get('/dataVhcsAndServices', (req, res) => dataVehicleAndService(req, res, con))
