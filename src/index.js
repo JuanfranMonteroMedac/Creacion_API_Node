@@ -45,12 +45,31 @@ app.get('/serviceVehicle', (req, res) => serviceVehicle(req, res, con))
 const dataServiceVehicle = require('./vehicles/dataVehicle').dataServiceVehicle
 app.get('/dataServiceVehicle', (req, res) => dataServiceVehicle(req, res, con))
 
-
-//TODO INTERACIONES DE CROD
+// ACTUALIZAR USUARIO
 const updateUser = require('./users/dataUser').updateUser
 app.post('/updateUser', (req, res) => updateUser(req, res, con))
 
-//INFORMACION DE UN UNSUARIO Y SUS VEHICULOS MEDIANTE ID USUARIO
+// CREAR NUEVO USUARIO
+const createUser = require('./users/dataUser').createUser
+app.post('/createUser', (req, res) => createUser(req, res, con))
+
+//ELIMINAR UN USUARIO
+const deleteUser = require('./users/dataUser').deleteUser
+app.post('/deleteUser', (req, res) => deleteUser(req, res, con))
+
+// MODIFICAR UN VEHICULO
+const updateVhc = require('./vehicles/dataVehicle').updateVhc
+app.post('/updateVhc', (req, res) => updateVhc(req, res, con))
+
+// CREAR UN NUEVO VEHICULO
+const createVhc = require('./vehicles/dataVehicle').createVhc
+app.post('/createVhc', (req, res) => createVhc(req, res, con))
+
+// ELIMINAR UN VEHICULO
+const deleteVhc = require('./vehicles/dataVehicle').deleteVhc
+app.post('/deleteVhc', (req, res) => deleteVhc(req, res, con)) //FALTA POR SOLUCIONAR
+
+//INFORMACION DE UN USUARIO Y SUS VEHICULOS MEDIANTE ID USUARIO
 const dataUserAndVehicles = require('./users/dataUser').dataUserAndVehicles
 app.get('/dataUserAndVehicles', (req, res) => dataUserAndVehicles(req, res, con))
 

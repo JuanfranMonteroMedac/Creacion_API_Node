@@ -49,10 +49,54 @@ const dataVehicleAndService = (req, res, con) => {
     })
   }
 
+  const updateVhc = (req, res, con) => {
+    let {matricula, marca, modelo, ano, id_matricula} =  req.body
+    let sql = `UPDATE lista_vehiculos SET matricula = ${matricula}, marca = ${marca}, modelo = ${modelo}, año = ${ano} WHERE id_matricula = ${id_matricula}`
+    con.query(sql, (err, result) => {
+        if(err) throw err
+        return res.json(result)
+    })
+}
+
+const createVhc = (req, res, con) => {
+    let {matricula, marca, modelo, año, id_usuario} =  req.body
+    let sql = `INSERT INTO lista_vehiculos (matricula, marca, modelo, año, id_usuario) VALUES ('${matricula}', '${marca}', '${modelo}', '${año}', '${id_usuario}')`
+    con.query(sql, (err, result) => {
+        if(err) throw err
+        return res.json(result)
+    })
+}
+
+
+const deleteVhc = (req, res, con) => {
+    let id_matricula =  req.body.id_matricula
+    let sql = `ON DELETE CASCADE FROM lista_vehiculos WHERE id_matricula = ${id_matricula}`
+    con.query(sql, (err, result) => {
+        if(err) throw err
+        return res.json(result)
+    })
+}
+
+
+// const deleteVhc = (req, res, con) => {
+//     let id_matricula =  req.body.id_matricula
+//     let sqlServicios = `DELETE FROM lista_servicios WHERE id_matricula = ${id_matricula}`
+//     con.query(sqlServicios, (err, resultServicio) => {
+//         if(err) throw err
+//         let sql = `DELETE FROM lista_vehiculos WHERE id_matricula = ${id_matricula}`
+//         con.query(sql, (err, result) => {
+//             if(err) throw err
+//             return res.json(result)
+//         })
+//     })
+// }
 exports.vehicleId =  vehicleId
 exports.dataVehicleId =  dataVehicleId
 exports.serviceVehicle =  serviceVehicle
 exports.dataServiceVehicle =  dataServiceVehicle
 exports.dataVehicleAndService = dataVehicleAndService
+exports.updateVhc = updateVhc
+exports.createVhc = createVhc
+exports.deleteVhc = deleteVhc
 
 

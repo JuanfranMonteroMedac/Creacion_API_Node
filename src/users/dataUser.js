@@ -46,7 +46,28 @@ const updateUser = (req, res, con) => {
   })
 };
 
+const createUser = (req, res, con) => {
+  let {nombre, apellidos, dni, telefono, email, contrasena, id_admin} = req.body
+  let sql = `INSERT INTO lista_usuario (nombre, apellidos, dni, telefono, email, contrasena, id_admin) VALUES ('${nombre}', '${apellidos}', '${dni}', '${telefono}', '${email}', '${contrasena}', '${id_admin}' )`
+  con.query(sql, (err, result) => {
+    if(err) throw err
+    return res.json(result)
+  })
+}
+
+const deleteUser = (req, res, con) => {
+  let id_usuario = req.body.id_usuario
+  let sql ='DELETE FROM lista_usuario WHERE id_usuario =' + id_usuario
+  con.query(sql, (err, result) => {
+    if(err) throw err
+    return res.json(result)
+  })
+}
+
+
 exports.userList = userList;
 exports.userId = userId;
 exports.dataUserAndVehicles = dataUserAndVehicles;
-exports.updateUser = updateUser;
+exports.updateUser = updateUser
+exports.createUser = createUser
+exports.deleteUser = deleteUser
