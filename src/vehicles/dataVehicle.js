@@ -67,29 +67,20 @@ const createVhc = (req, res, con) => {
     })
 }
 
-
+// FALTA POR SOLUCIONAR
 const deleteVhc = (req, res, con) => {
     let id_matricula =  req.body.id_matricula
-    let sql = `ON DELETE CASCADE FROM lista_vehiculos WHERE id_matricula = ${id_matricula}`
-    con.query(sql, (err, result) => {
+    let sqlServicios = `DELETE FROM lista_servicios WHERE id_matricula = ${id_matricula}`
+    con.query(sqlServicios, (err, resultServicio) => {
         if(err) throw err
-        return res.json(result)
+        let sql = `DELETE FROM lista_vehiculos WHERE id_matricula = ${id_matricula}`
+        con.query(sql, (err, result) => {
+            if(err) throw err
+            return res.json(result)
+        })
     })
 }
 
-
-// const deleteVhc = (req, res, con) => {
-//     let id_matricula =  req.body.id_matricula
-//     let sqlServicios = `DELETE FROM lista_servicios WHERE id_matricula = ${id_matricula}`
-//     con.query(sqlServicios, (err, resultServicio) => {
-//         if(err) throw err
-//         let sql = `DELETE FROM lista_vehiculos WHERE id_matricula = ${id_matricula}`
-//         con.query(sql, (err, result) => {
-//             if(err) throw err
-//             return res.json(result)
-//         })
-//     })
-// }
 exports.vehicleId =  vehicleId
 exports.dataVehicleId =  dataVehicleId
 exports.serviceVehicle =  serviceVehicle
@@ -98,5 +89,10 @@ exports.dataVehicleAndService = dataVehicleAndService
 exports.updateVhc = updateVhc
 exports.createVhc = createVhc
 exports.deleteVhc = deleteVhc
+
+
+
+// SERVICIOS
+
 
 

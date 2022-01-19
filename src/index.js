@@ -67,7 +67,11 @@ app.post('/createVhc', (req, res) => createVhc(req, res, con))
 
 // ELIMINAR UN VEHICULO
 const deleteVhc = require('./vehicles/dataVehicle').deleteVhc
-app.post('/deleteVhc', (req, res) => deleteVhc(req, res, con)) //FALTA POR SOLUCIONAR
+app.get('/deleteVhc', (req, res) => deleteVhc(req, res, con)) //FALTA POR SOLUCIONAR
+
+//MODIFICAR UN SERVICIO
+
+
 
 //INFORMACION DE UN USUARIO Y SUS VEHICULOS MEDIANTE ID USUARIO
 const dataUserAndVehicles = require('./users/dataUser').dataUserAndVehicles
