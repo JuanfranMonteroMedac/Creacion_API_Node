@@ -10,7 +10,7 @@ const conexion = () => {
     database : 'bd_taller'
     });
 
-    con.connect(function(err) {
+    con.connect(err => {
     if (err) throw err;
     console.log("Connected!");
     });

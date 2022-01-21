@@ -42,7 +42,7 @@ const dataVehicleAndService = (req, res, con) => {
         let sqlVhc = `SELECT * FROM lista_servicios WHERE id_matricula = ${result.id_matricula}`
         con.query(sqlVhc, (err, resultService) => {
             if(err) throw err
-            let dataVhcsAndServices = {result, Servicios: resultService}
+            let dataVhcsAndServices = {}
             console.log(dataVhcsAndServices);
             return res.json(dataVhcsAndServices)
         }) 
@@ -91,8 +91,6 @@ exports.createVhc = createVhc
 exports.deleteVhc = deleteVhc
 
 
-
-// SERVICIOS
 
 
 

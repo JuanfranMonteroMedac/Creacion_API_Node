@@ -1,5 +1,5 @@
-const { json } = require("express/lib/response");
-const { JSON } = require("mysql/lib/protocol/constants/types");
+// const { json } = require("express/lib/response");
+// const { JSON } = require("mysql/lib/protocol/constants/types");
 
 const userList = (req, res, con) => {
   let sql = "SELECT * FROM lista_usuario";

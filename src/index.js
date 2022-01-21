@@ -70,8 +70,16 @@ const deleteVhc = require('./vehicles/dataVehicle').deleteVhc
 app.get('/deleteVhc', (req, res) => deleteVhc(req, res, con)) //FALTA POR SOLUCIONAR
 
 //MODIFICAR UN SERVICIO
+const updateService = require('./servicesApi/dataService').updateService
+app.post('/updateService', (req, res) => updateService(req, res, con))
 
+// CREAR UN NUEVO SERVICIO
+const createService = require('./servicesApi/dataService').createService
+app.post('/createService',  (req, res) =>  createService(req, res, con))
 
+// ELIMINAR UN SERVICIO
+const deleteService = require('./servicesApi/dataService').deleteService
+app.post('/deleteService', (req, res) => deleteService(req, res, con))
 
 //INFORMACION DE UN USUARIO Y SUS VEHICULOS MEDIANTE ID USUARIO
 const dataUserAndVehicles = require('./users/dataUser').dataUserAndVehicles
