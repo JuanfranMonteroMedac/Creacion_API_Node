@@ -39,11 +39,18 @@ const dataVehicleAndService = (req, res, con) => {
     let sql = `SELECT * FROM lista_vehiculos WHERE id_usuario = ${id_usuario}`
     con.query(sql, (err, result) => {
         if(err) throw err
-        let sqlVhc = `SELECT * FROM lista_servicios WHERE id_matricula = ${result.id_matricula}`
+        console.log(result);
+        let sqlVhc = `SELECT * FROM lista_servicios WHERE id_matricula = ${result[0].id_matricula}`
         con.query(sqlVhc, (err, resultService) => {
             if(err) throw err
-            let dataVhcsAndServices = {}
-            console.log(dataVhcsAndServices);
+            let dataVhcsAndServices = {
+                matricula: result[0].matricula,
+                marca: result[0].marca,
+                modelo: result[0].modelo,
+                año: result[0].año,
+                id_usuario: result[0].id_usuario,
+                servicios: resultService
+            }
             return res.json(dataVhcsAndServices)
         }) 
     })
@@ -89,6 +96,7 @@ exports.dataVehicleAndService = dataVehicleAndService
 exports.updateVhc = updateVhc
 exports.createVhc = createVhc
 exports.deleteVhc = deleteVhc
+
 
 
 

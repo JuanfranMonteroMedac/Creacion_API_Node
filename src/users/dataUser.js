@@ -26,11 +26,16 @@ const dataUserAndVehicles = (req, res, con) => {
     let sqlVhc = `SELECT * FROM lista_vehiculos WHERE id_usuario = ${id_usuario}`;
     con.query(sqlVhc, (err, resultVhc) => {
       if (err) throw err;
-      //let dataUserAndVhcs = {result, vehiculos: resultVhc}
-      result.Vehiculos = resultVhc;
+      let dataUserAndVhcs = {
+        nombre: result[0].nombre,
+        apellidos: result[0].apellidos,
+        dni: result[0].dni,
+        telefono: result[0].telefono,
+        email: result[0].email,
+        vehiculos: resultVhc
+      }
 
-      console.log(result);
-      return res.json(result);
+      return res.json(dataUserAndVhcs);
     });
   });
 };
