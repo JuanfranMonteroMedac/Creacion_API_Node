@@ -46,8 +46,8 @@ const updateUser = (req, res, con) => {
   let sql = `UPDATE lista_usuario SET nombre = '${nombre}', apellidos = '${apellidos}', dni = '${dni}',
   telefono = '${telefono}', email = '${email}' WHERE id_usuario = '${id}'`;
   con.query(sql, (err, result) => {
-    if(err) throw err
-    return res.json(result)
+    if(err) throw res.json({Estado: 'NO COMPLETADO', Descripcion:'Fallo al actualizar el usuario'})
+        return res.json({Estado: 'OK', Descripcion: 'La actualización del usuario se ha efectuado'})
   })
 };
 
@@ -55,8 +55,8 @@ const createUser = (req, res, con) => {
   let {nombre, apellidos, dni, telefono, email, contrasena, id_admin} = req.body
   let sql = `INSERT INTO lista_usuario (nombre, apellidos, dni, telefono, email, contrasena, id_admin) VALUES ('${nombre}', '${apellidos}', '${dni}', '${telefono}', '${email}', '${contrasena}', '${id_admin}' )`
   con.query(sql, (err, result) => {
-    if(err) throw err
-    return res.json(result)
+    if(err) throw res.json({Estado: 'NO COMPLETADO', Descripcion:'Fallo al crear un nuevo usuario'})
+    return res.json({Estado: 'OK', Descripcion: 'La creación del usuario se ha efectuado', Id_Usuario: result.insertId})
   })
 }
 
@@ -64,8 +64,8 @@ const deleteUser = (req, res, con) => {
   let id_usuario = req.body.id_usuario
   let sql ='DELETE FROM lista_usuario WHERE id_usuario =' + id_usuario
   con.query(sql, (err, result) => {
-    if(err) throw err
-    return res.json(result)
+    if(err) throw res.json({Estado: 'NO COMPLETADO', Descripcion:'Fallo al eliminar un usuario'})
+    return res.json({Estado: 'OK', Descripcion: 'La eliminación del usuario se ha efectuado'})
   })
 }
 
