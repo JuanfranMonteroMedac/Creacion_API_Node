@@ -8,10 +8,16 @@ const con = require('./commons/conexionBBDD').conexion()
 app.set("port", process.env.PORT || 3000);
 app.set("json spaces", 2);
 
+const bodyParser = require('body-parser');
+const cors = require('../node_modules/cors');
+
 //Middleware
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 //Routes
 app.use(require("./routes/index"));
