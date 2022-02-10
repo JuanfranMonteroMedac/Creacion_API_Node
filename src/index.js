@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const con = require('./commons/conexionBBDD').conexion()
-
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('../doc/swagger_output.json')
 
 //Configuraciones
 app.set("port", process.env.PORT || 3000);
@@ -18,6 +19,8 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+
 
 //Routes
 app.use(require("./routes/index"));
@@ -43,11 +46,11 @@ app.get('/vehiclesId', (req, res) => vehicleId(req, res, con))
 const dataVehicleId = require('./vehicles/dataVehicle').dataVehicleId
 app.get('/dataVehicleId', (req, res) => dataVehicleId(req, res, con))
 
-//MOSTRAR SERVICIO VEHICULO POR ID MATRICULA
+//MOSTRAR SERVICIO DEL VEHICULO POR ID MATRICULA
 const serviceVehicle = require('./vehicles/dataVehicle').serviceVehicle
 app.get('/serviceVehicle', (req, res) => serviceVehicle(req, res, con))
 
-//MOSTRAR SERVICIO VEHICULO POR ID SERVICIO
+//MOSTRAR SERVICIO DEL VEHICULO POR ID SERVICIO
 const dataServiceVehicle = require('./vehicles/dataVehicle').dataServiceVehicle
 app.get('/dataServiceVehicle', (req, res) => dataServiceVehicle(req, res, con))
 
@@ -94,3 +97,7 @@ app.get('/dataUserAndVehicles', (req, res) => dataUserAndVehicles(req, res, con)
 //INFORMACION DE UN VEHICULO Y SUS SERVICIOS MEDIANTE ID USUARIO
 const dataVehicleAndService = require('./vehicles/dataVehicle').dataVehicleAndService
 app.get('/dataVhcsAndServices', (req, res) => dataVehicleAndService(req, res, con))
+
+// LOCALIZAR UN VEHICULO POR SU ID MATRICULA
+const referenceVhc = require('./references/reference').referenceVhc
+app.get('/referenceVhc', (req, res) => referenceVhc(req, res, con))
